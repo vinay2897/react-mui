@@ -1,17 +1,41 @@
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import SideBar from './components/SideBar';
+import ToolBar from './components/Toolbar';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const theme = createTheme({
+  components: {
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          minWidth: 40,
+        }
+      }
+    }
+  },
+  typography: {
+    allVariants: {
+      fontSize: 20,
+      color: '#a5aeb8',
+      fontWeight: 0,
+    }
+  },
+});
+
+function App() {
+  const drawerWidth = 340;
+
+  return <Box sx={{ display: 'flex' }}>
+    <SideBar drawerWidth={drawerWidth}/>
+    <ToolBar drawerWidth={drawerWidth}/>
+  </Box>;
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <ThemeProvider theme={theme}>
     <App />
-  </React.StrictMode>
+  </ThemeProvider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
